@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.3/dist/flowbite.min.css" />
+    <script src="https://unpkg.com/flowbite@1.4.3/dist/flowbite.js"></script>
+    <script src="index.js"></script>
+
+    <title>E-Book Store</title>
+</head>
+
+<body>
+
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+        <div class="container flex flex-wrap justify-between items-center mx-auto">
+            <a href="https://flowbite.com" class="flex items-center">
+                <!-- <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"> -->
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Bookstore</span>
+            </a>
+            <div class="flex md:order-2">
+                <div class="hidden relative mr-3 md:mr-0 md:block">
+                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+
+                    <input type="text" id="search_txt"
+                        class="block p-2 pl-10  mx-16 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search...">
+                </div>
+                <button 
+                 id="search_btn"
+                    class="hidden relative mr-3 md:mr-0 md:block bg-blue-500 hover:bg-blue-700  mx-8 text-white font-bold py-2 px-4  rounded-full"
+                    style="margin-left: 10px;">Search</a>
+                    <button data-collapse-toggle="mobile-menu-3" type="button"
+                        class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        aria-controls="mobile-menu-3" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+            </div>
+            <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="mobile-menu-3">
+                <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                    <li>
+                        <a href="index.html"
+                            class="block py-2 mx-4 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 mx-4 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Topic</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pr-4 mx-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About
+                            us</a>
+                    </li>
+                </ul>
+                <ui>
+                    <button
+                        class="bg-blue-500 hover:bg-blue-700 mx-4 text-white font-bold py-2 px-4  mx-100 rounded-full"
+                        id="signup" style="margin-left: 20px;">Sign up</a>
+                </ui>
+            </div>
+        </div>
+    </nav>
+    <div class="flex flex-wrap" id="main" style="margin-left: 60px;">
+    </div>
+
+
+
+
+</body>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-database-compat.js"></script>
+
+<script type="module">
+    import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCGGh4T81LfHAkPbZ27lKQGczIrMIYT5ik",
+        authDomain: "bookstore-a75ee.firebaseapp.com",
+        projectId: "bookstore-a75ee",
+        storageBucket: "bookstore-a75ee.appspot.com",
+        messagingSenderId: "999333536187",
+        appId: "1:999333536187:web:0d2e1b1e897361b7b2649e",
+        measurementId: "G-4V09YH37HT"
+    };
+    var app = firebase.initializeApp(firebaseConfig);
+    var query = firebase.database().ref("books").orderByKey();
+
+    var main = document.getElementById("main")
+
+    query.once("value")
+        .then(function (snapshot) {
+            // main.innerHTML = ""
+            snapshot.forEach(function (childSnapshot) {
+                var key = childSnapshot.key;
+                var user = localStorage.getItem("currentUser");
+                var childData = childSnapshot.val();
+                console.log(childData);
+
+                var entity = `
+                <div class="max-w-sm mt-4 mx-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" style="margin-left:25px" >
+                <a href="#">
+                <img class="p-8 rounded-t-lg" style="height: 300px ; width: 300px; padding-left: 40px;"
+                    src="${childData.img}"
+                    alt="product image" />
+                    </a>
+                    <div class="px-5 pb-5">
+                        <a href="#">
+                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${childData.name}</h5>
+                        </a>
+                        <div class="flex justify-between items-center">
+                            <span class="text-1xl font-bold text-gray-900 dark:text-white">Price : ${childData.price}</span>
+                            <a href="#"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
+                                to cart</a>
+                        </div>
+                    </div>
+                </div>
+        
+                `;
+
+                main.innerHTML += entity;
+            });
+            // console.log(target.innerHTML);
+        });
+
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider(app);
+    signup.addEventListener('click', (e) => {
+        if (localStorage.getItem("currentUser") == null) {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    const user = result.user;
+
+                    localStorage.setItem("currentUser", user.displayName);
+                    document.getElementById("signup").innerText = "Sign Out"
+                }).catch((error) => {
+
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    const email = error.email;
+
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    alert(errorMessage);
+                });
+        }
+        else {
+            localStorage.clear("currentUser");
+            document.getElementById("signup").innerText = "Sign In"
+        }
+    });
+    document.getElementById("search_btn").addEventListener("click",function(){
+           var txt = document.getElementById("search_txt").value;
+           localStorage.setItem("search_text",txt)
+           window.location.href="search.html";
+    })
+</script>
+
+</html>
