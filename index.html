@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.3/dist/flowbite.min.css" />
     <script src="https://unpkg.com/flowbite@1.4.3/dist/flowbite.js"></script>
@@ -16,11 +17,13 @@
 
 <body>
 
-    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800" style=" position: fixed;
+    top: 0;
+    width: 100%;">
         <div class="container flex flex-wrap justify-between items-center mx-auto">
             <a href="https://flowbite.com" class="flex items-center">
                 <!-- <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"> -->
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Bookstore</span>
+                <span class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">Bookstore</span>
             </a>
             <div class="flex md:order-2">
                 <div class="hidden relative mr-3 md:mr-0 md:block">
@@ -75,16 +78,20 @@
                             us</a>
                     </li>
                 </ul>
-                <ui>
+                <ul style="margin-left: 10px;">
+                    <button  class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full" style="padding: 10px;">
+                        Add to cart
+                        <i class="fa fa-shopping-cart" style="font-size:30px"></i>
+                    </button>
                     <button
-                        class="bg-blue-500 hover:bg-blue-700 mx-4 text-white font-bold py-2 px-4  mx-100 rounded-full"
-                        id="signup" style="margin-left: 20px;">Sign up</a>
-                </ui>
+                            class="bg-blue-500 hover:bg-blue-700 mx-4 text-white mt-0 font-bold pl-3 py-2 px-4  mx-100 rounded-full"
+                            id="signup" >Sign up</button>
+                </ul>
             </div>
         </div>
     </nav>
-    <div class="flex flex-wrap" id="main" style="margin-left: 35px;">
-    </div>]
+    <div class="flex flex-wrap" id="main" style="margin-left: 35px; margin-top: 60pt;">
+    </div>
 
 
 
@@ -139,7 +146,6 @@
                         </div>
                     </div>
                 </div>
-        
                 `;
 
                 main.innerHTML += entity;
