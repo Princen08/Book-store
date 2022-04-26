@@ -23,7 +23,7 @@
         <div class="container flex flex-wrap justify-between items-center mx-auto">
             <a href="https://flowbite.com" class="flex items-center">
                 <!-- <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"> -->
-                <span class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">Bookstore</span>
+                <span class="self-center text-3xl font-semibold whitespace-nowrap " style="color:darkslategrey">Bookstore</span>
             </a>
             <div class="flex md:order-2">
                 <div class="hidden relative mr-3 md:mr-0 md:block">
@@ -78,7 +78,7 @@
                             us</a>
                     </li>
                 </ul>
-                <ul style="margin-left: 10px;">
+                <ul style="margin-left: 20px;">
                     <button  class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full" style="padding: 10px;">
                         Add to cart
                         <i class="fa fa-shopping-cart" style="font-size:30px"></i>
@@ -125,8 +125,7 @@
                 var key = childSnapshot.key;
                 var user = localStorage.getItem("currentUser");
                 var childData = childSnapshot.val();
-                console.log(childData);
-
+    
                 var entity = `
                 <div class="max-w-sm mt-4 mx-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" style="margin-left:25px" >
                 <a href="#">
