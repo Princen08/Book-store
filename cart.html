@@ -78,7 +78,8 @@
                     </li>
                 </ul>
                 <ul style="margin-left: 20px;">
-                    <button id="cart"class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full"
+                    <button id="cart"
+                        class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full"
                         style="padding: 12px;">
                         Add to cart
                         <i class="fa fa-shopping-cart" style="font-size:30px"></i>
@@ -114,13 +115,24 @@
         measurementId: "G-4V09YH37HT"
     };
     var app = firebase.initializeApp(firebaseConfig);
-    var query = firebase.database().ref("books").orderByKey();
 
     var main = document.getElementById("main")
     if (localStorage.getItem("currentUser") != null) {
         document.getElementById("signup").innerText = "Sign Out"
     }
     var books = []
+    var user = localStorage.getItem("currentUser")
+    firebase.database().ref('user_book/' + user).on('value', function (snap) {
+        try {
+            books = JSON.parse(snap.val().bookid)
+            console.log(books)
+        }
+        catch (e) {
+            console.log("Error");
+        }
+    })
+
+    var query = firebase.database().ref("books").orderByKey();
     query.once("value")
         .then(function (snapshot) {
             // main.innerHTML = ""
@@ -128,28 +140,36 @@
                 var key = childSnapshot.key;
                 var user = localStorage.getItem("currentUser");
                 var childData = childSnapshot.val();
-                var entity = `
-                <div class="max-w-sm mt-4 mx-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" style="margin-left:25px" >
-                <a href="#">
-                <img class="p-8 rounded-t-lg" style="height: 300px ; width: 300px; padding-left: 40px;"
-                    src="${childData.img}"
-                    alt="product image" />
+                var found = books.find(function (element) {
+                    return element == key;
+                });
+                if (found) {
+                    var entity = `
+                    <div class="max-w-sm mt-4 mx-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" style="margin-left:25px" >
+            <a href="#">
+            <img class="p-8 rounded-t-lg" style="height: 300px ; width: 300px; padding-left: 40px;"
+                src="${childData.img}"
+                alt="product image" />
+                </a>
+                <div class="px-5 pb-5">
+                    <a href="#">
+                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${childData.name}</h5>
                     </a>
-                    <div class="px-5 pb-5">
-                        <a href="#">
-                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${childData.name}</h5>
-                        </a>
-                        <div class="flex justify-between items-center">
-                            <span class="text-1xl font-bold text-gray-900 dark:text-white">Price : ${childData.price}$</span>
+                    <div class="flex justify-between items-center">
+                        <span class="text-1xl font-bold text-gray-900 dark:text-white">Price :${childData.price}</span>
+                        <button href="#"
+                            id="${key}"
+                            class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buy</button>
                             <button href="#"
-                                id="${key}"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
-                                to cart</button>
-                        </div>
+                            id="${key}"
+                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Remove</button>
                     </div>
                 </div>
+            </div>
                 `;
-                main.innerHTML += entity;
+                    main.innerHTML += entity;
+                }
+
             });
 
         }).then(after);
@@ -167,8 +187,8 @@
             }
         }
     }
-    document.getElementById("cart").addEventListener("click",function(){
-        window.location.href = "cart.html" 
+    document.getElementById("cart").addEventListener("click", function () {
+        window.location.href = "cart.html"
     })
     function tempfunc(bookid) {
         books.push(bookid);
@@ -198,9 +218,9 @@
                 document.getElementById("signup").innerText = "Sign In"
             }
         }
-        else{
-             firebase.database().ref('user_book/' + user).update({
-                 bookid:JSON.stringify(books)
+        else {
+            firebase.database().ref('user_book/' + user).update({
+                bookid: JSON.stringify(books)
             });
         }
     }
@@ -215,9 +235,9 @@
                     const token = credential.accessToken;
                     const user = result.user;
                     firebase.database().ref('user_book/' + user.displayName).set({
-                          user:user.displayName,
-                          bookid:""
-                     });
+                        user: user.displayName,
+                        bookid: ""
+                    });
                     localStorage.setItem("currentUser", user.displayName);
                     document.getElementById("signup").innerText = "Sign Out"
                 }).catch((error) => {
