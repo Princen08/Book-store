@@ -173,9 +173,11 @@
             });
 
         }).then(after);
+
     function after() {
         for (var i = 0; i <books.length; i++) {
             try {
+                console.log(books[i])
                 document.getElementById(books[i]+"remove").addEventListener("click", function () {
                     tempfunc(this.id);
                    
