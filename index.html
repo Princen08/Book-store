@@ -78,7 +78,8 @@
                     </li>
                 </ul>
                 <ul style="margin-left: 20px;">
-                    <button id="cart"class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full"
+                    <button id="cart"
+                        class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full"
                         style="padding: 12px;">
                         Add to cart
                         <i class="fa fa-shopping-cart" style="font-size:30px"></i>
@@ -167,11 +168,10 @@
             }
         }
     }
-    document.getElementById("cart").addEventListener("click",function(){
-        window.location.href = "cart.html" 
+    document.getElementById("cart").addEventListener("click", function () {
+        window.location.href = "cart.html"
     })
     function tempfunc(bookid) {
-        books.push(bookid);
         var user = localStorage.getItem("currentUser");
         if (user == null) {
             if (localStorage.getItem("currentUser") == null) {
@@ -198,9 +198,21 @@
                 document.getElementById("signup").innerText = "Sign In"
             }
         }
-        else{
-             firebase.database().ref('user_book/' + user).update({
-                 bookid:JSON.stringify(books)
+        else {
+            var prev_book=[];
+            var ref = firebase.database().ref("user_book/"+localStorage.getItem("currentUser"));
+            ref.once("value").then(function (snapshot) {
+                    var user = snapshot.val();
+                    prev_book = JSON.parse(user.bookid);
+                    localStorage.setItem("books",prev_book);
+                });
+                if(localStorage.getItem("books")!=null){
+                    prev_book = localStorage.getItem("books").split(",").map(Number);
+                }
+                console.log(prev_book)
+                prev_book.push(bookid)
+            firebase.database().ref('user_book/' + user).update({
+                bookid: JSON.stringify(prev_book)
             });
         }
     }
@@ -215,9 +227,9 @@
                     const token = credential.accessToken;
                     const user = result.user;
                     firebase.database().ref('user_book/' + user.displayName).set({
-                          user:user.displayName,
-                          bookid:""
-                     });
+                        user: user.displayName,
+                        bookid: ""
+                    });
                     localStorage.setItem("currentUser", user.displayName);
                     document.getElementById("signup").innerText = "Sign Out"
                 }).catch((error) => {
