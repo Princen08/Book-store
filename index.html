@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.3/dist/flowbite.min.css" />
     <script src="https://unpkg.com/flowbite@1.4.3/dist/flowbite.js"></script>
     <script src="index.js"></script>
-
     <title>E-Book Store</title>
 </head>
 
@@ -41,7 +40,7 @@
                         placeholder="Search...">
                 </div>
                 <button id="search_btn"
-                    class="hidden relative mr-3 md:mr-0 md:block bg-blue-500 hover:bg-blue-700  mx-8 text-white font-bold py-2 px-4  rounded-full"
+                    class="hidden relative mr-3 md:mr-0 md:block bg-blue-500 hover:bg-blue-700  mx-8 text-white  py-2 px-4  rounded-full"
                     style="margin-left: 10px;">Search</a>
                     <button data-collapse-toggle="mobile-menu-3" type="button"
                         class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -64,28 +63,27 @@
                 <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                     <li>
                         <a href="index.html"
-                            class="block text-xl py-2 mx-4 pr-4 pl-3 font-bold text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                            class="block text-xl py-2 mx-4 pr-4 pl-3  text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                             aria-current="page">Home</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block text-xl py-2 mx-4 pr-4 pl-3 font-bold text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Topic</a>
+                            class="block text-xl py-2 mx-4 pr-4 pl-3  text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Topic</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block text-xl py-2 pr-4 mx-4 pl-3 font-bold text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About
+                            class="block text-xl py-2 pr-4 mx-4 pl-3  text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About
                             us</a>
                     </li>
                 </ul>
                 <ul style="margin-left: 20px;">
-                    <button id="cart"
-                        class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full"
+                    <button id="cart" class="bg-blue-500 hover:bg-blue-700  text-white mt-0   mx-16 rounded-full"
                         style="padding: 12px;">
                         Add to cart
                         <i class="fa fa-shopping-cart" style="font-size:30px"></i>
                     </button>
                     <button
-                        class="bg-blue-500 hover:bg-blue-700 mx-4 text-white mt-0 font-bold pl-3 py-2 px-4  mx-100 rounded-full"
+                        class="bg-blue-500 hover:bg-blue-700 mx-4 text-white mt-0  pl-3 py-2 px-4  mx-100 rounded-full"
                         id="signup">Sign In</button>
                 </ul>
             </div>
@@ -156,7 +154,7 @@
         }).then(after);
 
     function after() {
-        for (var i = 0; i <= 100000; i++) {
+        for (var i = 1; i <= 100000; i++) {
             try {
                 document.getElementById(i).addEventListener("click", function () {
                     tempfunc(this.id);
@@ -199,18 +197,18 @@
             }
         }
         else {
-            var prev_book=[];
-            var ref = firebase.database().ref("user_book/"+localStorage.getItem("currentUser"));
+            var prev_book = [];
+            var ref = firebase.database().ref("user_book/" + localStorage.getItem("currentUser"));
             ref.once("value").then(function (snapshot) {
-                    var user = snapshot.val();
-                    prev_book = JSON.parse(user.bookid);
-                    localStorage.setItem("books",prev_book);
-                });
-                if(localStorage.getItem("books")!=null){
-                    prev_book = localStorage.getItem("books").split(",").map(Number);
-                }
-                console.log(prev_book)
-                prev_book.push(bookid)
+                var user = snapshot.val();
+                prev_book = JSON.parse(user.bookid);
+                localStorage.setItem("books", prev_book);
+            });
+            if (localStorage.getItem("books") != null) {
+                prev_book = localStorage.getItem("books").split(",").map(Number);
+            }
+            console.log(prev_book)
+            prev_book.push(parseInt(bookid))
             firebase.database().ref('user_book/' + user).update({
                 bookid: JSON.stringify(prev_book)
             });
@@ -231,6 +229,7 @@
                         bookid: ""
                     });
                     localStorage.setItem("currentUser", user.displayName);
+
                     document.getElementById("signup").innerText = "Sign Out"
                 }).catch((error) => {
 

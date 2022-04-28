@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.3/dist/flowbite.min.css" />
     <script src="https://unpkg.com/flowbite@1.4.3/dist/flowbite.js"></script>
     <script src="index.js"></script>
-
     <title>E-Book Store</title>
 </head>
 
@@ -96,7 +95,6 @@
 
 
 
-
 </body>
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
@@ -115,123 +113,11 @@
         measurementId: "G-4V09YH37HT"
     };
     var app = firebase.initializeApp(firebaseConfig);
+    var query = firebase.database().ref("books").orderByKey();
 
     var main = document.getElementById("main")
     if (localStorage.getItem("currentUser") != null) {
         document.getElementById("signup").innerText = "Sign Out"
-    }
-    var books = []
-    var user = localStorage.getItem("currentUser")
-    firebase.database().ref('user_book/' + user).on('value', function (snap) {
-        try {
-            books = JSON.parse(snap.val().bookid)
-        }
-        catch (e) {
-            console.log("Error");
-        }
-    })
-    var new_books = localStorage.getItem("books");
-    if (new_books != null) {
-        new_books = new_books.split(',').map(Number)
-        var i = new_books.length;
-        while (i--) {
-            if (new_books[i] == 0) {
-                new_books.splice(new_books.indexOf(0), 1);
-            }
-        }
-        localStorage.setItem("books", new_books);
-        firebase.database().ref('user_book/' + user).update({
-            bookid: JSON.stringify(new_books)
-        });
-    }
-    var query = firebase.database().ref("books").orderByKey();
-    query.once("value")
-        .then(function (snapshot) {
-            // main.innerHTML = ""
-            snapshot.forEach(function (childSnapshot) {
-                var key = childSnapshot.key;
-                var user = localStorage.getItem("currentUser");
-                var childData = childSnapshot.val();
-                var found = books.find(function (element) {
-                    return element == key;
-                });
-                if (found) {
-                    var entity = `
-                    <div id=${key}div class="max-w-sm mt-4 mx-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" style="margin-left:25px" >
-            <a href="#">
-            <img class="p-8 rounded-t-lg" style="height: 300px ; width: 300px; padding-left: 40px;"
-                src="${childData.img}"
-                alt="product image" />
-                </a>
-                <div class="px-5 pb-5">
-                    <a href="#">
-                        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${childData.name}</h5>
-                    </a>
-                    <div class="flex justify-between items-center">
-                        <span class="text-1xl font-bold text-gray-900 dark:text-white">Price :${childData.price}</span>
-                        <button href="#"
-                            id="${key}buy"
-                            class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buy</button>
-                            <button href="#"
-                            id="${key}remove"
-                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Remove</button>
-                    </div>
-                </div>
-            </div>
-                `;
-                    main.innerHTML += entity;
-                }
-
-            });
-
-        }).then(after);
-
-    function after() {
-        for (var i = 0; i < books.length; i++) {
-            try {
-                document.getElementById(books[i] + "buy").addEventListener("click", function () {
-                    buy_item(this.id);
-                })
-                document.getElementById(books[i] + "remove").addEventListener("click", function () {
-                    remove_item(this.id);
-                })
-            }
-            catch (e) {
-                console.log("value of I : ", i);
-                break;
-            }
-        }
-    }
-
-    document.getElementById("cart").addEventListener("click", function () {
-        window.location.href = "cart.html"
-    })
-    function remove_item(bookid) {
-        bookid = bookid.replace("remove", "div")
-        var ele = document.getElementById(bookid);
-        ele.remove();
-        var s = ""
-        for (var i = 0; i < bookid.length - 3; i++) {
-            s += bookid[i];
-        }
-        s = parseInt(s);
-        var new_books = localStorage.getItem("books");
-        if (new_books != null) {
-            new_books = new_books.split(',').map(Number)
-            var i = new_books.length;
-            while (i--) {
-                if (new_books[i] == s || new_books[i] == 0) {
-                    new_books.splice(new_books.indexOf(s), 1);
-                }
-            }
-            localStorage.setItem("books", new_books);
-            firebase.database().ref('user_book/' + user).update({
-                bookid: JSON.stringify(new_books)
-            });
-        }
-    }
-    function buy_item(bookid){
-        window.location.href = "order.html";
     }
 
     const auth = getAuth(app);
@@ -248,6 +134,7 @@
                         bookid: ""
                     });
                     localStorage.setItem("currentUser", user.displayName);
+
                     document.getElementById("signup").innerText = "Sign Out"
                 }).catch((error) => {
 

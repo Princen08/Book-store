@@ -15,14 +15,14 @@
 </head>
 
 <body>
-
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800" style=" position: fixed;
     top: 0;
     width: 100%;">
         <div class="container flex flex-wrap justify-between items-center mx-auto">
             <a href="https://flowbite.com" class="flex items-center">
                 <!-- <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"> -->
-                <span class="self-center text-3xl font-semibold whitespace-nowrap " style="color:darkslategrey">Bookstore</span>
+                <span class="self-center text-3xl font-semibold whitespace-nowrap "
+                    style="color:darkslategrey">Bookstore</span>
             </a>
             <div class="flex md:order-2">
                 <div class="hidden relative mr-3 md:mr-0 md:block">
@@ -39,9 +39,8 @@
                         class="block p-2 pl-10  mx-16 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search...">
                 </div>
-                <button 
-                 id="search_btn"
-                    class="hidden relative mr-3 md:mr-0 md:block bg-blue-500 hover:bg-blue-700  mx-8 text-white font-bold py-2 px-4  rounded-full"
+                <button id="search_btn"
+                    class="hidden relative mr-3 md:mr-0 md:block bg-blue-500 hover:bg-blue-700  mx-8 text-white  py-2 px-4  rounded-full"
                     style="margin-left: 10px;">Search</a>
                     <button data-collapse-toggle="mobile-menu-3" type="button"
                         class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -64,33 +63,35 @@
                 <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                     <li>
                         <a href="index.html"
-                            class="block text-xl py-2 mx-4 pr-4 pl-3 font-bold text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                            class="block text-xl py-2 mx-4 pr-4 pl-3  text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                             aria-current="page">Home</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block text-xl py-2 mx-4 pr-4 pl-3 font-bold text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Topic</a>
+                            class="block text-xl py-2 mx-4 pr-4 pl-3  text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Topic</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block text-xl py-2 pr-4 mx-4 pl-3 font-bold text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About
+                            class="block text-xl py-2 pr-4 mx-4 pl-3  text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About
                             us</a>
                     </li>
                 </ul>
                 <ul style="margin-left: 20px;">
-                    <button  class="bg-blue-500 hover:bg-blue-700  text-white mt-0 font-bold  mx-16 rounded-full" style="padding: 12px;">
+                    <button id="cart" class="bg-blue-500 hover:bg-blue-700  text-white mt-0   mx-16 rounded-full"
+                        style="padding: 12px;">
                         Add to cart
                         <i class="fa fa-shopping-cart" style="font-size:30px"></i>
                     </button>
                     <button
-                            class="bg-blue-500 hover:bg-blue-700 mx-4 text-white mt-0 font-bold pl-3 py-2 px-4  mx-100 rounded-full"
-                            id="signup" >Sign In</button>
+                        class="bg-blue-500 hover:bg-blue-700 mx-4 text-white mt-0  pl-3 py-2 px-4  mx-100 rounded-full"
+                        id="signup">Sign In</button>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="flex flex-wrap" id="main" style="margin-left: 35px; margin-top: 60pt;">
     </div>
+
 
 
 
@@ -115,8 +116,8 @@
     var query = firebase.database().ref("books").orderByKey();
 
     var main = document.getElementById("main")
-    
-    if(localStorage.getItem("currentUser")!=null){
+
+    if (localStorage.getItem("currentUser") != null) {
         document.getElementById("signup").innerText = "Sign Out"
     }
 
