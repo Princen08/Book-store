@@ -90,6 +90,7 @@
             </div>
         </div>
     </nav>
+
     <div class="row" id="form_order" style="margin-top: 80pt; border-radius: 10pt;">
         <div class="col-75">
           <div class="containe" style="background-color:whitesmoke;">    
@@ -148,7 +149,7 @@
               <label>
                 <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
               </label>
-              <button class="btn" style="background-color: cornflowerblue;">Order Now</button>
+              <button class="btn" id="order" style="background-color: cornflowerblue;">Order Now</button>
           </div>
         </div>
       </div>
@@ -210,6 +211,7 @@
         else {
             localStorage.clear("currentUser");
             document.getElementById("signup").innerText = "Sign In"
+            location.reload()
         }
     });
 
@@ -217,6 +219,9 @@
         var txt = document.getElementById("search_txt").value;
         localStorage.setItem("search_text", txt)
         window.location.href = "search.html";
+    })
+    document.getElementById("order").addEventListener("click",function(){
+
     })
 
 </script>
