@@ -90,65 +90,69 @@
             </div>
         </div>
     </nav>
-    <div class="wrapper">
-        <div class="containe">
-            <form action="">
-                <h1>
-                    <i class="fas fa-shipping-fast"></i>
-                    Shipping Details
-                </h1>
-                <div class="name">
-                    <div>
-                        <label for="f-name">First Name</label>
-                        <input type="text" name="f-name">
+    <div class="row" id="form_order" style="margin-top: 80pt; border-radius: 10pt;">
+        <div class="col-75">
+          <div class="containe" style="background-color:whitesmoke;">    
+              <div class="row">
+                <div class="col-50">
+                  <h2 style="font-size: 16pt;">Billing Address</h2>
+                  <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                  <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+                  <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                  <input type="text" id="email" name="email" placeholder="john@example.com">
+                  <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                  <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                  <label for="city"><i class="fa fa-institution"></i> City</label>
+                  <input type="text" id="city" name="city" placeholder="New York">
+      
+                  <div class="row">
+                    <div class="col-50">
+                      <label for="state">State</label>
+                      <input type="text" id="state" name="state" placeholder="NY">
                     </div>
-                    <div>
-                        <label for="l-name">Last Name</label>
-                        <input type="text" name="l-name">
+                    <div class="col-50">
+                      <label for="zip">Zip</label>
+                      <input type="text" id="zip" name="zip" placeholder="10001">
                     </div>
+                  </div>
                 </div>
-                <div class="street">
-                    <label for="name">Street</label>
-                    <input type="text" name="address">
-                </div>
-                <div class="address-info">
-                    <div>
-                        <label for="city">City</label>
-                        <input type="text" name="city">
+      
+                <div class="col-50">
+                   <h2 style="font-size: 16pt;">Payment</h2>
+                  <label for="fname">Accepted Cards</label>
+                  <div class="icon-container">
+                    <i class="fa fa-cc-visa" style="color:navy;"></i>
+                    <i class="fa fa-cc-amex" style="color:blue;"></i>
+                    <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                    <i class="fa fa-cc-discover" style="color:orange;"></i>
+                  </div>
+                  <label for="cname">Name on Card</label>
+                  <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+                  <label for="ccnum">Credit card number</label>
+                  <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                  <label for="expmonth">Exp Month</label>
+                  <input type="text" id="expmonth" name="expmonth" placeholder="September">
+                  <div class="row">
+                    <div class="col-50">
+                      <label for="expyear">Exp Year</label>
+                      <input type="text" id="expyear" name="expyear" placeholder="2018">
                     </div>
-                    <div>
-                        <label for="state">State</label>
-                        <input type="text" name="state">
+                    <div class="col-50">
+                      <label for="cvv">CVV</label>
+                      <input type="text" id="cvv" name="cvv" placeholder="352">
                     </div>
-                    <div>
-                        <label for="zip">Zip</label>
-                        <input type="text" name="zip">
-                    </div>
+                  </div>
                 </div>
-                <h1>
-                    <i class="far fa-credit-card"></i> Payment Information
-                </h1>
-                <div class="cc-num">
-                    <label for="card-num">Credit Card No.</label>
-                    <input type="text" name="card-num">
-                </div>
-                <div class="cc-info">
-                    <div>
-                        <label for="card-num">Exp</label>
-                        <input type="text" name="expire">
-                    </div>
-                    <div>
-                        <label for="card-num">CCV</label>
-                        <input type="text" name="security">
-                    </div>
-                </div>
-                <div class="btns">
-                    <button>Purchase</button>
-                    <button>Back to cart</button>
-                </div>
-            </form>
+                
+              </div>
+              <label>
+                <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+              </label>
+              <button class="btn" style="background-color: cornflowerblue;">Order Now</button>
+          </div>
         </div>
-    </div>
+      </div>
+      
 
 
 
