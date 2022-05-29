@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.3/dist/flowbite.min.css" />
@@ -19,10 +20,7 @@
     top: 0;
     width: 100%;">
         <div class="container flex flex-wrap justify-between items-center mx-auto">
-            <a href="https://flowbite.com" class="flex items-center">
-                <!-- <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"> -->
-                <span class="self-center text-3xl font-semibold whitespace-nowrap "
-                    style="color:darkslategrey">Bookstore</span>
+                    <img src = 'logo.png' style="height:50pt ; width: 50pt; margin-left: 20pt; border-radius: 10pt;">
             </a>
             <div class="flex md:order-2">
                 <div class="hidden relative mr-3 md:mr-0 md:block">
@@ -102,7 +100,7 @@
 
 <script type="module">
     import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
-
+    // import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js";
     const firebaseConfig = {
         apiKey: "AIzaSyCGGh4T81LfHAkPbZ27lKQGczIrMIYT5ik",
         authDomain: "bookstore-a75ee.firebaseapp.com",
@@ -200,22 +198,29 @@
         else {
             var prev_book = [];
             var ref = firebase.database().ref("user_book/" + localStorage.getItem("currentUser"));
+            var found = 0;
             ref.once("value").then(function (snapshot) {
                 var user = snapshot.val();
-                prev_book = JSON.parse(user.bookid);
+                console.log(user.bookid);
+                if(user.bookid!=""){
+                    prev_book = JSON.parse(user.bookid);
+                }
                 localStorage.setItem("books", prev_book);
+                setdata()
             });
-            if (localStorage.getItem("books") != null) {
+            function setdata(){
+               if (localStorage.getItem("books") != null) {
                 prev_book = localStorage.getItem("books").split(",").map(Number);
+               }
+                prev_book.push(parseInt(bookid))
+                firebase.database().ref('user_book/' + user).update({
+                    bookid: JSON.stringify(prev_book)
+                });
             }
-            console.log(prev_book)
-            prev_book.push(parseInt(bookid))
-            firebase.database().ref('user_book/' + user).update({
-                bookid: JSON.stringify(prev_book)
-            });
+            
         }
     }
-    // localStorage.removeItem("books");
+
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider(app);
     signup.addEventListener('click', (e) => {
@@ -225,10 +230,33 @@
                     const credential = GoogleAuthProvider.credentialFromResult(result);
                     const token = credential.accessToken;
                     const user = result.user;
-                    firebase.database().ref('user_book/' + user.displayName).set({
-                        user: user.displayName,
-                        bookid: ""
+                    var userid = auth.currentUser.uid;
+                    var ref = firebase.database().ref('user_book');
+                    var can = 0;
+                    ref.on("value", function(snapshot) {
+                        snapshot.forEach((data) => {
+                        if(data.val().user == user.displayName){
+                            set(1);
+                        }
+        
                     });
+                    if(can == 0){
+                        unset();
+                    }
+                    }, function (error) {
+                    console.log("Error: " + error.code);
+                    });
+
+                    function set(x){
+                        can = 1;
+                    }
+                    function unset(){
+                        firebase.database().ref('user_book/' + user.displayName).set({
+                            user: user.displayName,
+                            bookid: ""
+                        });
+                    }
+           
                     localStorage.setItem("currentUser", user.displayName);
 
                     document.getElementById("signup").innerText = "Sign Out"
