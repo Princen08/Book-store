@@ -88,7 +88,7 @@
             </div>
         </div>
     </nav>
-
+    <div class="lds-ring" id="loader"><div></div><div></div><div></div><div></div></div>
     <div class="row" id="form_order" style="margin-top: 80pt; border-radius: 10pt;">
         <div class="col-75">
           <div class="containe" style="background-color:whitesmoke;">    
@@ -179,7 +179,17 @@
     if (localStorage.getItem("currentUser") != null) {
         document.getElementById("signup").innerText = "Sign Out"
     }
+    document.getElementById("form_order").style.visibility = "hidden";
+    document.getElementById("loader").style.marginLeft = "550pt";
+    document.body.style.opacity = 0.2;
+    setTimeout(fun,2000);
+    function fun(){
+        document.body.style.opacity = 1;
+        document.getElementById("form_order").style.visibility = "visible";
+        document.getElementById("loader").style.visibility = "hidden";
+        document.getElementById("loader").style.marginLeft = "0";
 
+    }
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider(app);
     signup.addEventListener('click', (e) => {

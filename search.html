@@ -87,6 +87,7 @@
             </div>
         </div>
     </nav>
+    <div class="lds-ring" id="loader"><div></div><div></div><div></div><div></div></div>
     <div class="flex flex-wrap" id="main" style="margin-left: 35px; margin-top: 60pt;">
     </div>
 
@@ -155,7 +156,17 @@
             });
             // console.log(target.innerHTML);
         });
+    document.getElementById("main").style.visibility = "hidden";
+    document.getElementById("loader").style.marginLeft = "100";
+    document.body.style.opacity = 0.2;
+    setTimeout(fun,2000);
+    function fun(){
+        document.body.style.opacity = 1;
+        document.getElementById("main").style.visibility = "visible";
+        document.getElementById("loader").style.visibility = "hidden";
+        document.getElementById("loader").style.marginLeft = "0";
 
+    }
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider(app);
     signup.addEventListener('click', (e) => {

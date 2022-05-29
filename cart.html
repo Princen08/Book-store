@@ -21,8 +21,7 @@
     top: 0;
     width: 100%;">
         <div class="container flex flex-wrap justify-between items-center mx-auto">
-                <img src = 'logo.png' style="height:50pt ; width: 50pt; margin-left: 20pt; border-radius: 10pt;">
-            </a>
+            <img src = 'logo.png' style="height:50pt ; width: 50pt; margin-left: 20pt; border-radius: 10pt;">
             <div class="flex md:order-2">
                 <div class="hidden relative mr-3 md:mr-0 md:block">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -88,6 +87,7 @@
             </div>
         </div>
     </nav>
+    <div class="lds-ring" id="loader"><div></div><div></div><div></div><div></div></div>
     <div class="flex flex-wrap" id="main" style="margin-left: 35px; margin-top: 60pt;">
     </div>
 
@@ -113,7 +113,7 @@
         measurementId: "G-4V09YH37HT"
     };
     var app = firebase.initializeApp(firebaseConfig);
-
+    
     var main = document.getElementById("main")
     if (localStorage.getItem("currentUser") != null) {
         document.getElementById("signup").innerText = "Sign Out"
@@ -128,24 +128,21 @@
             console.log("Error");
         }
     })
-    var new_books = localStorage.getItem("books");
-    if (new_books != null) {
-        new_books = new_books.split(',').map(Number)
-        var i = new_books.length;
-        while (i--) {
-            if (new_books[i] == 0) {
-                new_books.splice(new_books.indexOf(0), 1);
-            }
-        }
-        localStorage.setItem("books", new_books);
-        firebase.database().ref('user_book/' + user).update({
-            bookid: JSON.stringify(new_books)
-        });
+    document.getElementById("main").style.visibility = "hidden";
+    document.getElementById("loader").style.marginLeft = "100";
+    document.body.style.opacity = 0.2;
+    setTimeout(fun,2000);
+    function fun(){
+        document.body.style.opacity = 1;
+        document.getElementById("main").style.visibility = "visible";
+        document.getElementById("loader").style.visibility = "hidden";
+        document.getElementById("loader").style.marginLeft = "0";
+
     }
     var query = firebase.database().ref("books").orderByKey();
     query.once("value")
         .then(function (snapshot) {
-            // main.innerHTML = ""
+            main.innerHTML = ""
             snapshot.forEach(function (childSnapshot) {
                 var key = childSnapshot.key;
                 var user = localStorage.getItem("currentUser");
@@ -166,7 +163,7 @@
                         <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">${childData.name}</h5>
                     </a>
                     <div class="flex justify-between items-center">
-                        <span class="text-1xl font-bold text-gray-900 dark:text-white">Price :${childData.price}</span>
+                        <span class="text-1xl font-bold text-gray-900 dark:text-white">Price :${childData.price}$</span>
                         <button href="#"
                             id="${key}buy"
                             class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buy</button>
@@ -177,14 +174,10 @@
                 </div>
             </div>
                 `;
-                
                     main.innerHTML += entity;
                 }
 
             });
-            if(main.innerHTML==""){
-                main.innerHTML = "<h3>Empty</h3>";
-            }
 
         }).then(after);
 
@@ -199,7 +192,6 @@
                 })
             }
             catch (e) {
-                console.log("value of I : ", i);
                 break;
             }
         }
@@ -218,6 +210,7 @@
         }
         s = parseInt(s);
         var new_books = localStorage.getItem("books");
+        console.log(new_books);
         if (new_books != null) {
             new_books = new_books.split(',').map(Number)
             var i = new_books.length;
@@ -264,7 +257,6 @@
         else {
             localStorage.clear("currentUser");
             document.getElementById("signup").innerText = "Sign In"
-            location.reload()
         }
     });
 
