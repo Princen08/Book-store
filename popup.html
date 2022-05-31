@@ -98,72 +98,13 @@
             </div>
         </div>
     </nav>
-    <div class="lds-ring" id="loader"><div></div><div></div><div></div><div></div></div>
-    <form action="popup.html" method="post">
-    <div class="row" id="form_order" style="margin-top: 80pt; border-radius: 10pt;">
-        <div class="col-75">
-          <div class="containe" style="background-color:whitesmoke;">    
-              <div class="row">
-                <div class="col-50">
-                  <h2 style="font-size: 16pt;">Billing Address</h2>
-                  <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                  <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required/>
-                  <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                  <input type="text" id="email" name="email" placeholder="john@example.com" required/>
-                  <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                  <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required/>
-                  <label for="city"><i class="fa fa-institution"></i> City</label>
-                  <input type="text" id="city" name="city" placeholder="New York" required/>
-      
-                  <div class="row">
-                    <div class="col-50">
-                      <label for="state">State</label>
-                      <input type="text" id="state" name="state" placeholder="NY" required/>
-                    </div>
-                    <div class="col-50">
-                      <label for="zip">Zip</label>
-                      <input type="text" id="zip" name="zip" placeholder="10001" required/>
-                    </div>
-                  </div>
-                </div>
-      
-                <div class="col-50">
-                   <h2 style="font-size: 16pt;">Payment</h2>
-                  <label for="fname">Accepted Cards</label>
-                  <div class="icon-container">
-                    <i class="fa fa-cc-visa" style="color:navy;"></i>
-                    <i class="fa fa-cc-amex" style="color:blue;"></i>
-                    <i class="fa fa-cc-mastercard" style="color:red;"></i>
-                    <i class="fa fa-cc-discover" style="color:orange;"></i>
-                  </div>
-                  <label for="cname">Name on Card</label>
-                  <input type="text" id="cname" name="cardname" placeholder="John More Doe" required/>
-                  <label for="ccnum">Credit card number</label>
-                  <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required/>
-                  <label for="expmonth">Exp Month</label>
-                  <input type="text" id="expmonth" name="expmonth" placeholder="September" required/>
-                  <div class="row">
-                    <div class="col-50">
-                      <label for="expyear">Exp Year</label>
-                      <input type="text" id="expyear" name="expyear" placeholder="2018" required/>
-                    </div>
-                    <div class="col-50">
-                      <label for="cvv">CVV</label>
-                      <input type="text" id="cvv" name="cvv" placeholder="352" required/>
-                    </div>
-                  </div>
-                </div>
-                
-              </div>
-              <label>
-                <input type="checkbox" checked="checked" name="sameadr" required/> Shipping address same as billing
-              </label>
-              <input  type="submit" class="btn" id="order"  style="background-color: cornflowerblue; text-align: center;" value="Order Now"/>
-          </div>
-        </div>
-      </div>
-    </form>
-     <div id = "mes"></div>
+    
+    <div class="mess" style="background-color: aliceblue; margin-right:20pt; width: 500pt; height:200pt; border-radius: 10pt; margin-top: 150pt;">
+        <h3 style="text-align: center; padding-top:40pt;font-size:20pt">Thank you...</h3>
+        <h3 style="text-align: center; padding-top:10pt; padding-left:20pt">Your order has been placed successfully.</h3>
+        <h3 id = "code"></h3>
+        <button  class = "bg-blue-500 text-white mt-0" style=" margin-left:210pt ; margin-top:20pt; border-radius: 15pt; width: 90pt; height: 30pt;" onclick="go()">Go to Home</button>
+    </div>
       
 
 
@@ -185,6 +126,8 @@
         appId: "1:999333536187:web:0d2e1b1e897361b7b2649e",
         measurementId: "G-4V09YH37HT"
     };
+    var orderno = Math.floor(Math.random() * 100000000) + 1;
+    document.getElementById("code").innerHTML = `<h3 id = "code" style="text-align: center; padding-top:10pt; padding-left:20pt; padding-right:20pt">Your order number is ${orderno}. We will immediatelly process your and it will be delivered in 2 - 5 business days.</h3>`
     var app = firebase.initializeApp(firebaseConfig);
     var query = firebase.database().ref("books").orderByKey();
 
